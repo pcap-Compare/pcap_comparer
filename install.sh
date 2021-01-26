@@ -5,6 +5,7 @@ if [ "$EUID" -ne 0 ];
     echo "please run as root"
     exit
     else
+        pip install pypcapkit
         apt-get install sqlite3
         mkdir pcapComparer 
         cd pcapComparer
