@@ -1,7 +1,7 @@
 # pcap_comparer
 small tool to see which ip addresses and mac addresses you've seen before
 
-*INSTALLATION PROCESS:
+*INSTALLATION PROCESS:*
 sudo chmod 777 installer.sh
 
 sudo ./installer.sh
