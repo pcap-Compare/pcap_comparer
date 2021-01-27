@@ -7,9 +7,7 @@ if [ "$EUID" -ne 0 ];
     else
         pip install pypcapkit
         apt-get install sqlite3
-        mkdir pcapComparer 
-        cd pcapComparer
-        sqlite3 pcapStorage.db      
-        cd 
+        sqlite3 pcapStorage.db 'CREATE TABLE "Address"("ips"TEXT,"mac"TEXT,"countSeen"TEXT)'
+        echo "created pcapStorage.db "
         exit
 fi
