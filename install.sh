@@ -9,7 +9,7 @@ if [ "$EUID" -ne 0 ];
         apt-get install sqlite3
         mkdir pcapComparer 
         cd pcapComparer
-        sqlite3 pcapStorage.db
+        sqlite3 pcapStorage.db      
         cd 
         exit
 fi

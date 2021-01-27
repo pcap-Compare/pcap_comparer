@@ -31,6 +31,9 @@ storageDB = storageDBConnString.cursor()
 def Addcount(): #**copied from stackoverflow** function that just increments 1 to the count function
     if not os.path.exists('counterlog.txt'):
         f = open('counterlog.txt', 'x')
+        queryCreate = """CREATE TABLE "Address"("ips"TEXT,"mac"TEXT,"countSeen"TEXT)"""
+        storageDB.execute(queryCreate)
+        storageDBConnString.commit()
         f.write("0")
         f.close()
     else:
