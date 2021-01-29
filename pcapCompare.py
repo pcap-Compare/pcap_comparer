@@ -6,7 +6,7 @@ import sqlite3
 import re
 import getopt
 import sys
-
+#add convert_to_text() function that converts ips to text
 def Credits():
     print('''
     =========================================================
@@ -51,7 +51,25 @@ def DeleteAll(): #deletes all the content from the database
         print("successfully deleted DB contents")
     except Exception as e:
         print(e)
-    
+
+def Convert_to_Text(file_name):
+    ReturnQuery = """SELECT ips FROM Address"""
+    temp = storageDB.execute(ReturnQuery)    
+    try:
+        with open("{0}.txt".format(file_name) ,"x") as f:
+            print("copying ips into '{0}.txt...'".format(file_name))
+            for i in temp.fetchall():
+                temp1 = str(i).replace("'", "")
+                temp2 = temp1.replace('("','')
+                temp3 = temp2.replace('",)', '')
+                f.write(temp3 + "\n")
+    except Exception as e:
+        print("file already exists")
+        sys.exit(0)
+    print("copied ips to text file")
+
+
+
 def AddNewAddress(ip,mac): #adds unseen mac and ip into the database
     storageDB.execute("""INSERT INTO Address(ips,mac,countSeen) VALUES(:ips, :mac, :countSeen);""", {"ips": ip, "mac": mac, "countSeen": "1"})
     storageDBConnString.commit()
@@ -172,6 +190,7 @@ def main():
     --return_Ip: returns specific information about given IP address
     --return_Mac: returns specific information about given Mac address
     --print_recurring: returns every IP that has been seen before
+    --copy_ips: copies all address to a text file with a name of your choosing
     --print_all: returns everything in the database
     --delete_all: deletes every address in the database
      ****USE ONLY IF YOU WANT TO RESET THE DATABASE CONTENTS****
@@ -181,14 +200,16 @@ def main():
     python3 pcapCompare.py --return_Ip [IP address]
     python3 pcapCompare.py --return_Mac [MAC address]
     python3 pcapCompare.py --print_recurring
+    python3 pcapCompare.py --copy_ips [TEXT FILE NAME] ***do not add a .txt ending as the code will already do that***
     python3 pcapCompare.py --print_all
     python3 pcapCompare.py --delete_all
+    
 
     """
     File_Path = None
     
     try:
-        opts,args = getopt.getopt(sys.argv[1:], "h", ["help","file_path=","return_Ip=","return_Mac=","print_recurring","print_all", "delete_all","credits"])
+        opts,args = getopt.getopt(sys.argv[1:], "h", ["help","file_path=","return_Ip=","return_Mac=","print_recurring","print_all", "delete_all","credits", "copy_ips="])
     except getopt.GetoptError as err:
         print(err)
         sys.exit(0)
@@ -211,6 +232,8 @@ def main():
             DeleteAll()
         elif options in("--credits"):
             Credits()           
+        elif options in("--copy_ips"):
+            Convert_to_Text(arguments)
         else:
             print("invalid argument")
             sys.exit(0)
