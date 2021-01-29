@@ -1,12 +1,14 @@
 import os
 import pcapkit
-#import mysql.connector
 import string
 import sqlite3
 import re
 import getopt
 import sys
-#add convert_to_text() function that converts ips to text
+
+#version 0.1.2
+CURRENT_VERSION = '0.1.2'
+
 def Credits():
     print('''
     =========================================================
@@ -22,6 +24,8 @@ def Credits():
     ꧁👁 ꧂#9701 on discord
     Mrmellow#2662 on discord
     for helping me with some debugging
+
+
     =========================================================
     ''')
 
@@ -71,7 +75,7 @@ def Convert_to_Text(file_name):
 
 
 def AddNewAddress(ip,mac): #adds unseen mac and ip into the database
-    storageDB.execute("""INSERT INTO Address(ips,mac,countSeen) VALUES(:ips, :mac, :countSeen);""", {"ips": ip, "mac": mac, "countSeen": "1"})
+    storageDB.execute("""INSERT INTO Address(ips,mac,countSeen) VAL ES(:ips, :mac, :countSeen);""", {"ips": ip, "mac": mac, "countSeen": "1"})
     storageDBConnString.commit()
     return storageDB.fetchall()
 
@@ -192,6 +196,7 @@ def main():
     --print_recurring: returns every IP that has been seen before
     --copy_ips: copies all address to a text file with a name of your choosing
     --print_all: returns everything in the database
+    --version: prints current version number
     --delete_all: deletes every address in the database
      ****USE ONLY IF YOU WANT TO RESET THE DATABASE CONTENTS****
 
@@ -203,13 +208,14 @@ def main():
     python3 pcapCompare.py --copy_ips [TEXT FILE NAME] ***do not add a .txt ending as the code will already do that***
     python3 pcapCompare.py --print_all
     python3 pcapCompare.py --delete_all
+    python3 pcapCompare.py --version
     
 
     """
     File_Path = None
     
     try:
-        opts,args = getopt.getopt(sys.argv[1:], "h", ["help","file_path=","return_Ip=","return_Mac=","print_recurring","print_all", "delete_all","credits", "copy_ips="])
+        opts,args = getopt.getopt(sys.argv[1:], "h", ["help","file_path=","return_Ip=","return_Mac=","print_recurring","print_all", "delete_all","credits", "copy_ips=", "version"])
     except getopt.GetoptError as err:
         print(err)
         sys.exit(0)
@@ -234,6 +240,9 @@ def main():
             Credits()           
         elif options in("--copy_ips"):
             Convert_to_Text(arguments)
+        elif options in("--version"):
+            print(CURRENT_VERSION)
+        
         else:
             print("invalid argument")
             sys.exit(0)
