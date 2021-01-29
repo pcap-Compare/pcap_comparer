@@ -18,5 +18,5 @@ contributions are appreciated :)***
 **changelog:**
 
 
-*30/1/2021 - added the option to copy all ip addresses to a text file*
+*v0.1.2- added the option to copy all ip addresses to a text file*
 
