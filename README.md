@@ -14,3 +14,7 @@ small tool to see which ip addresses and mac addresses you've seen before
 ***if you have an problem message me on discord mrLochness350#7880 |
 contributions are appreciated :)***
 
+
+**changelog:**
+*30/1/2021 - added the option to copy all ip addresses to a text file
+
