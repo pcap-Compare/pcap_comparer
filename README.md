@@ -16,7 +16,7 @@ contributions are appreciated :)***
 
 ***(feb 11th, 2021) added bash scripts that allow user to have a headless scanning station and an automatic file upload system to their desired computer. REQUIRES STATIC IP AND PORT FORWARDING***
 
-**usage for *onBootScanner.sh* and *cpyPcap.sh*:
+**usage for *onBootScanner.sh* and *cpyPcap.sh*:**
 
 
   ***ON YOUR HEADLESS SCANNING DEVICE:***
